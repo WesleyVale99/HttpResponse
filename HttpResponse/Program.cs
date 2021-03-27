@@ -32,7 +32,7 @@ namespace HttpResponse
                 Console.WriteLine("[x] Enter Method: [0 POST, 1 GET]");
                 int method = int.Parse(Console.ReadLine());
 
-                if (Url != "" && Url.Contains("https://") && Token != "" && method == 0  || method == 1)
+                if (Url != "" && (Url.Contains("https://") || Url.Contains("http://"))  && Token != "" && (method == 0  || method == 1))
                 {
 
                     string[] BreakPoint = Url.Split('?');
