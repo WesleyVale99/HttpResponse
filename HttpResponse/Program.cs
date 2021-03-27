@@ -31,19 +31,22 @@ namespace HttpResponse
                 {
                     string[] BreakPoint = Url.Split('?');
 
-                    Console.WriteLine("Site Accepted: " + BreakPoint[0]);//https://
-                    Console.WriteLine("Method Accepted: " + (Method)method);
+                    Console.WriteLine("request Referer: " + BreakPoint[0]);//https://
+                    Console.WriteLine("request Method: " + (Method)method);
 
                     HttpWebRequest request = WebRequest.CreateHttp(BreakPoint[0]);
                     if(method == 0)
                     {
                         string breakPoint = BreakPoint[index];
-                        byte[] dados = Encoding.UTF8.GetBytes(breakPoint);
+                        byte[] dados = Encoding.ASCII.GetBytes(breakPoint);
                         Console.WriteLine("Breakpoint: " + breakPoint);
-
-                        request.ContentType = "application/x-www-form-urlencoded";
-                        request.ContentLength = dados.Length;
+                        Console.WriteLine("Buffer: " + dados.Length);
+                        
                         request.Method = ((Method)method).ToString();
+                        request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
+                        request.ContentLength = dados.Length;
+                        request.ContentType = "application/x-www-form-urlencoded";//"multipart/form-data; boundary=----WebKitFormBoundaryZjAtXvxTO3xUgkEl";
+                        request.Referer = BreakPoint[0];
                         request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36";
 
                         using var stream = request.GetRequestStream();
@@ -61,9 +64,11 @@ namespace HttpResponse
                             response.Close();
                         }
                     }
-                    else
+                    else if(method == 1)
                     {
                         request.Method = ((Method)method).ToString();
+                        request.ContentType = "application/x-www-form-urlencoded";
+                        request.Referer = BreakPoint[0];
                         request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36";
                         using WebResponse response = request.GetResponse();
                         Stream streamDados = response.GetResponseStream();
@@ -79,17 +84,17 @@ namespace HttpResponse
                 }
                 else
                 {
-                    Console.WriteLine("[x] Incorrect values ​​for requisition [!]");
+                    Console.WriteLine("[x] Error requisition [!]");
                 }
 
             }
             catch (FormatException ex)
             {
-                Console.WriteLine("[x] FormatError:  [" + ex.Message + "]");
+                Console.WriteLine("[x] FormatError:  [ " + ex.Message + " ] [!]");
             }
             catch (WebException ex)
             {
-                Console.WriteLine("[x] WebException:  [" + ex.Message + "]");
+                Console.WriteLine("[x] WebException:  [ " + ex.Message + " ] [!]");
             }
 
             Process.GetCurrentProcess().WaitForExit();
