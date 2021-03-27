@@ -12,6 +12,10 @@ namespace HttpResponse
 {
     class Program
     {
+        /*
+         * @author: https://github.com/WesleyVale99
+         * 
+         */
         static void Main()
         {
 
