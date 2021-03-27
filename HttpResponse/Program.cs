@@ -31,8 +31,8 @@ namespace HttpResponse
                 {
                     string[] BreakPoint = Url.Split('?');
 
-                    Console.WriteLine("request Referer: " + BreakPoint[0]);//https://
-                    Console.WriteLine("request Method: " + (Method)method);
+                    Console.WriteLine("Request Referer: " + BreakPoint[0]);//https://
+                    Console.WriteLine("Request Method: " + (Method)method);
 
                     HttpWebRequest request = WebRequest.CreateHttp(BreakPoint[0]);
                     if(method == 0)
