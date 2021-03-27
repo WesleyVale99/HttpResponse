@@ -22,11 +22,14 @@ namespace HttpResponse
             try
             {
                 Console.Title = "HttpWebRequest v0.1";
-                Console.WriteLine("[x] By: Wesley Vale.");
+                Console.WriteLine("@author: https://github.com/WesleyVale99");
                 Console.WriteLine("\n");
                 Console.WriteLine("[!] one of the methods to use the program is to leave g-recaptcha-response = null \n" +
-                    "so that the program can automatically add");
+                    "[!] so that the program can automatically add");
+                Console.WriteLine("[!] Url example: https://test.com?user=12345&password=12345&g-recaptcha-response=&terms=true");
                 Console.WriteLine("\n");
+
+
                 Console.WriteLine("[x] Enter a URL: ");
                 string Url = Console.ReadLine();
 
@@ -68,7 +71,7 @@ namespace HttpResponse
                         HttpWebRequest request = WebRequest.CreateHttp(BreakPoint[0]);
 
                         string breakPoint = string.Concat(Mount);
-                        byte[] dados = Encoding.ASCII.GetBytes(breakPoint);
+                        byte[] dados = Encoding.UTF8.GetBytes(breakPoint);
 
 
                         
