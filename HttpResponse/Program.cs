@@ -71,27 +71,27 @@ namespace HttpResponse
                         HttpWebRequest request = WebRequest.CreateHttp(BreakPoint[0]);
 
                         string breakPoint = string.Concat(Mount);
-                        byte[] dados = Encoding.UTF8.GetBytes(breakPoint);
+                        byte[] data = Encoding.UTF8.GetBytes(breakPoint);
 
 
                         
                         request.Method = ((Method)method).ToString();
                         //request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
-                        request.ContentLength = dados.Length;
+                        request.ContentLength = data.Length;
                         request.ContentType = "application/x-www-form-urlencoded";//"multipart/form-data; boundary=----WebKitFormBoundaryZjAtXvxTO3xUgkEl";
                         request.Referer = BreakPoint[0];
                         request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36";
 
                         using Stream stream = request.GetRequestStream();
-                        stream.Write(dados, 0, dados.Length);
+                        stream.Write(data, 0, data.Length);
                         stream.Close();
 
 
 
-                        string Formater = JsonConvert.SerializeObject(request, Formatting.Indented);
+                        string Format = JsonConvert.SerializeObject(request, Formatting.Indented);
                         Console.WriteLine("\n");
                         Console.WriteLine("Breakpoint: " + breakPoint);
-                        Console.WriteLine(Formater);
+                        Console.WriteLine(Format);
 
                         using WebResponse response = request.GetResponse();
                         Stream streamDados = response.GetResponseStream();
